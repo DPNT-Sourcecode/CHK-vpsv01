@@ -36,10 +36,15 @@ def checkout(skus):
                       "H" : (10, 20), "K" : (2, 10), "P" : (5, 50),
                       "Q" : (3,  10), "U" : (4, 40), "V" : (3, 20)}
     second_discount = {"A" : (3, 20), "H" : (5, 5), "V" : (2, 10)}
-
+    free_discount = {"E" : (2, "B"), "N" : (3, "M"), "R" : (3, "Q")}
 
     quantities = {item : skus.count(item) for item in base_prices.keys()}
     if sum(quantities.values()) != len(skus) : return -1
+
+    for product,t in discounts.items():
+        n_for_discount, discount = t
+        checkout -= (quantities[product] // n_for_discount) * discount
+
 
     quantities["B"] = max(0, quantities["B"] - quantities["E"] // 2)
 
@@ -50,7 +55,3 @@ def checkout(skus):
     checkout -= quantities["F"] // 3 * 10
 
     return checkout
-
-
-
-
