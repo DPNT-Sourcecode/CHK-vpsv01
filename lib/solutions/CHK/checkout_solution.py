@@ -32,9 +32,12 @@ def checkout(skus):
         "Z" : 50
     }
 
-    discounts = {"A" : (5,50), "B" : (2,15), "F" : (3, 10), "H" : (10,20), "K" : (2, 10),
-                 "P" : (5, 50), "Q" : (3,10), "U" : (4, 40), "V" : (3, 20)}
-                 
+    first_discount = {"A" : (5,  50), "B" : (2, 15), "F" : (3, 10),
+                      "H" : (10, 20), "K" : (2, 10), "P" : (5, 50),
+                      "Q" : (3,  10), "U" : (4, 40), "V" : (3, 20)}
+    second_discount = {"A" : (3, 20), "H" : (5, 5), "V" : (2, 10)}
+
+
     quantities = {item : skus.count(item) for item in base_prices.keys()}
     if sum(quantities.values()) != len(skus) : return -1
 
@@ -47,6 +50,7 @@ def checkout(skus):
     checkout -= quantities["F"] // 3 * 10
 
     return checkout
+
 
 
 
