@@ -41,6 +41,7 @@ def checkout(skus):
                       "Q" : (3,  10), "U" : (4, 40), "V" : (3, 20)}
     second_discount = {"A" : (3, 20), "H" : (5, 5), "V" : (2, 10)}
     free_discount = {"E" : (2, "B"), "N" : (3, "M"), "R" : (3, "Q")}
+    total = 0
 
     qty = {item : skus.count(item) for item in base_prices.keys()}
     if sum(qty.values()) != len(skus) : return -1
@@ -50,21 +51,22 @@ def checkout(skus):
         special += qty[item] * [item]
         qty[item] = 0
     triple = len(special) // 3
-    checkout += triple * 45
+    total += triple * 45
     for product in special[triple*3:]: qty[product] += 1
 
     for product, n_for_discount, free_item in get_values(free_discount):
         qty[free_item] = max(0, qty[free_item] - qty[product] // n_for_discount)
 
-    checkout = sum(qty[product]*price for product,price in base_prices.items())
+    total += sum(qty[product]*price for product,price in base_prices.items())
 
     for product, n_for_discount, discount in get_values(first_discount):
-        checkout -= (qty[product] // n_for_discount) * discount
+        total -= (qty[product] // n_for_discount) * discount
 
     for product, n_for_discount, discount in get_values(second_discount):
-        checkout -= ((qty[product]%first_discount[product][0]) // n_for_discount) * discount
+        total -= ((qty[product]%first_discount[product][0]) // n_for_discount) * discount
 
-    return checkout
+    return total
+
 
 
 
