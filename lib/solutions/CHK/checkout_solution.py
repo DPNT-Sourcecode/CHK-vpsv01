@@ -4,8 +4,7 @@
 # skus = unicode string
 def checkout(skus):
     def get_values (d):
-        for product,t in d.items():
-            n_for_discount, discount = t
+        for k,t in d.items(): yield k,*t
 
     base_prices = {
         "A" : 50,
@@ -45,14 +44,12 @@ def checkout(skus):
     qty = {item : skus.count(item) for item in base_prices.keys()}
     if sum(qty.values()) != len(skus) : return -1
 
-    for product,t in free_discount.items():
-        n_for_discount, free_item = t
+    for product, n_for_discount, free_item in get_values(free_discount):
         qty[free_item] = max(0, qty[free_item] - qty[product] // n_for_discount)
 
     checkout = sum(qty[product]*price for product,price in base_prices.items())
 
-    for product,t in first_discount.items():
-        n_for_discount, discount = t
+    for product, n_for_discount, discount in get_values(first_discount):
         checkout -= (qty[product] // n_for_discount) * discount
 
     for product,t in second_discount.items():
@@ -61,6 +58,7 @@ def checkout(skus):
 
 
     return checkout
+
 
 
 
