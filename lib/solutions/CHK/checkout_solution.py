@@ -18,7 +18,7 @@ def checkout(skus):
         "H" : 10,
         "I" : 35,
         "J" : 60,
-        "K" : 80,
+        "K" : 70,
         "L" : 90,
         "M" : 15,
         "N" : 40,
@@ -37,7 +37,7 @@ def checkout(skus):
     }
 
     first_discount = {"A" : (5,  50), "B" : (2, 15), "F" : (3, 10),
-                      "H" : (10, 20), "K" : (2, 10), "P" : (5, 50),
+                      "H" : (10, 20), "K" : (2, 20), "P" : (5, 50),
                       "Q" : (3,  10), "U" : (4, 40), "V" : (3, 20)}
     second_discount = {"A" : (3, 20), "H" : (5, 5), "V" : (2, 10)}
     free_discount = {"E" : (2, "B"), "N" : (3, "M"), "R" : (3, "Q")}
@@ -57,6 +57,7 @@ def checkout(skus):
         checkout -= ((qty[product]%first_discount[product][0]) // n_for_discount) * discount
 
     return checkout
+
 
 
 
