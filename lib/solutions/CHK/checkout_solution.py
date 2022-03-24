@@ -45,6 +45,11 @@ def checkout(skus):
     qty = {item : skus.count(item) for item in base_prices.keys()}
     if sum(qty.values()) != len(skus) : return -1
 
+    special = []
+    for item in "ZYTSX":   special += qty[item] * [item]
+    ls = len(special)
+
+
     for product, n_for_discount, free_item in get_values(free_discount):
         qty[free_item] = max(0, qty[free_item] - qty[product] // n_for_discount)
 
@@ -57,3 +62,4 @@ def checkout(skus):
         checkout -= ((qty[product]%first_discount[product][0]) // n_for_discount) * discount
 
     return checkout
+
