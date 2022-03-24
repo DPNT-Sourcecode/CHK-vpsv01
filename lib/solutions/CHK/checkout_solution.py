@@ -3,6 +3,10 @@
 # noinspection PyUnusedLocal
 # skus = unicode string
 def checkout(skus):
+    def get_values (d):
+        for product,t in d.items():
+            n_for_discount, discount = t
+
     base_prices = {
         "A" : 50,
         "B" : 30,
@@ -57,5 +61,6 @@ def checkout(skus):
 
 
     return checkout
+
 
 
