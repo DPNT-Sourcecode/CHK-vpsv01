@@ -38,23 +38,24 @@ def checkout(skus):
     second_discount = {"A" : (3, 20), "H" : (5, 5), "V" : (2, 10)}
     free_discount = {"E" : (2, "B"), "N" : (3, "M"), "R" : (3, "Q")}
 
-    quantities = {item : skus.count(item) for item in base_prices.keys()}
-    if sum(quantities.values()) != len(skus) : return -1
+    qty = {item : skus.count(item) for item in base_prices.keys()}
+    if sum(qty.values()) != len(skus) : return -1
 
     for product,t in free_discount.items():
         n_for_discount, free_item = t
-        quantities[free_item] = max(0, quantities[free_item] - quantities[product] // n_for_discount)
+        qty[free_item] = max(0, qty[free_item] - qty[product] // n_for_discount)
 
-    checkout = sum(quantities[product]*price for product,price in base_prices.items())
+    checkout = sum(qty[product]*price for product,price in base_prices.items())
 
     for product,t in first_discount.items():
         n_for_discount, discount = t
-        checkout -= (quantities[product] // n_for_discount) * discount
+        checkout -= (qty[product] // n_for_discount) * discount
 
-    checkout -= quantities["A"] // 5 * 50
-    checkout -= (quantities["A"]%5) // 3 * 20
-    checkout -= quantities["B"] // 2 * 15
-    checkout -= quantities["F"] // 3 * 10
+    for product,t in second_discount.items():
+        n_for_discount, discount = t
+        checkout -= ((qty[product]%first_discount[product][0]) // n_for_discount) * discount
+
 
     return checkout
+
 
