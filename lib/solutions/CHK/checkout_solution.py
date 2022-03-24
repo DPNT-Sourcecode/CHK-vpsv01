@@ -52,12 +52,11 @@ def checkout(skus):
     for product, n_for_discount, discount in get_values(first_discount):
         checkout -= (qty[product] // n_for_discount) * discount
 
-    for product,t in second_discount.items():
-        n_for_discount, discount = t
+    for product, n_for_discount, discount in get_values(second_discount):
         checkout -= ((qty[product]%first_discount[product][0]) // n_for_discount) * discount
 
-
     return checkout
+
 
 
 
