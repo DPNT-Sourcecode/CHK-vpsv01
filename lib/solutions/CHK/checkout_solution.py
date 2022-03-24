@@ -6,7 +6,6 @@ def checkout(skus):
     base_prices = {"A" : 50, "B" : 30, "C" : 20, "D" : 15 }
     discounts = {"A" : (3,20), "B" : (2,15)}  # if there are 3 A, discount is 20 gbp
 
-    skus = skus.upper()
     quantities = {item : skus.count(item) for item in base_prices.keys()}
     if sum(quantities.values()) != len(skus) : return -1
 
@@ -16,5 +15,3 @@ def checkout(skus):
         checkout -= (quantities[product] // n_for_discount) * discount
 
     return checkout
-
-
