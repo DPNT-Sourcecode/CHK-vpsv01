@@ -47,7 +47,8 @@ def checkout(skus):
 
     special = []
     for item in "ZYTSX":   special += qty[item] * [item]
-    ls = len(special)
+    triple = len(special) // 3
+    checkout += triple * 45
 
 
     for product, n_for_discount, free_item in get_values(free_discount):
@@ -62,4 +63,5 @@ def checkout(skus):
         checkout -= ((qty[product]%first_discount[product][0]) // n_for_discount) * discount
 
     return checkout
+
 
