@@ -16,5 +16,3 @@ def checkout(skus):
     checkout -= quantities["B"] // 2 * 15
 
     return checkout
-
-
