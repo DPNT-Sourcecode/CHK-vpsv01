@@ -66,7 +66,3 @@ def checkout(skus):
         total -= ((qty[product]%first_discount[product][0]) // n_for_discount) * discount
 
     return total
-
-
-
-
